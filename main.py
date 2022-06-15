@@ -23,6 +23,9 @@ class Student:
                 lenth += 1
         return round(total / lenth, 1) if lenth != 0 else 0
 
+    def add_courses(self, course_name):
+        self.courses_in_progress.append(course_name)  
+
     def rate_lection(self, lecturer, course, rate):
         if isinstance(lecturer, Lecturer) and course in lecturer.courses_attached and course in self.courses_in_progress and 0 <= rate <= 10:
             if course in lecturer.rate_lection:
@@ -37,6 +40,9 @@ class Mentor:
         self.name = name
         self.surname = surname
         self.courses_attached = []
+
+    def attach_courses(self, course_name):
+        self.courses_attached.append(course_name) 
         
 class Lecturer(Mentor):
     def __init__(self, name, surname):
@@ -92,25 +98,25 @@ def rate_average(lecturers:list, course):
 
 #Создаем студентов
 best_student = Student('Ruoy', 'Eman', 'your_gender')
-best_student.courses_in_progress += ['Python']
-best_student.courses_in_progress += ['Java']
+best_student.add_courses('Python')
+best_student.add_courses('Java')
 second_student = Student('Taiqa', 'Waititi', 'other_gender')
-second_student.courses_in_progress += ['Python']
-second_student.courses_in_progress += ['C#']
+second_student.add_courses('Python')
+second_student.add_courses('C#')
 
 #Создаем ревьюверов
 cool_mentor = Reviewer('Some', 'Buddy')
-cool_mentor.courses_attached += ['Python']
+cool_mentor.attach_courses('Python')
 other_mentor = Reviewer('Bad', 'Guy')
-other_mentor.courses_attached += ['Java']
+other_mentor.attach_courses('Java')
 
 #Создаем лекторов
 lector = Lecturer('Another', 'Guy')
-lector.courses_attached += ['Python']
-lector.courses_attached += ['Java']
+lector.attach_courses('Python')
+lector.attach_courses('Java')
 lector1 = Lecturer('Lora', 'Palmer')
-lector1.courses_attached += ['Python']
-lector1.courses_attached += ['C#']
+lector1.attach_courses('Python')
+lector1.attach_courses('C#')
 
 #Оцениваем лекции
 best_student.rate_lection(lector, 'Python', 10)
