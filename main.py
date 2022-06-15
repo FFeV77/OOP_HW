@@ -8,7 +8,12 @@ class Student:
         self.grades = {}
 
     def __str__(self):
-        return f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за домашние задания: {self.__grade_average()}\nКурсы в процессе изучения: {", ".join(self.courses_in_progress)}\nЗавершенные курсы: {", ".join(self.finished_courses)}'
+        return f'''
+Имя: {self.name}
+Фамилия: {self.surname}
+Средняя оценка за домашние задания: {self.__grade_average()}
+Курсы в процессе изучения: {", ".join(self.courses_in_progress)}
+Завершенные курсы: {", ".join(self.finished_courses)}'''
     
     def __lt__(self, other):
         if isinstance(other, Student):
@@ -54,7 +59,10 @@ class Lecturer(Mentor):
             return True if self.__rate_average() < other.__rate_average() else False
 
     def __str__(self):
-        return f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {self.__rate_average()}'
+        return f'''
+Имя: {self.name}
+Фамилия: {self.surname}
+Средняя оценка за лекции: {self.__rate_average()}'''
 
     def __rate_average(self):
         total = 0
@@ -76,25 +84,33 @@ class Reviewer(Mentor):
             return 'Ошибка'
 
     def __str__(self):
-        return f'Имя: {self.name}\nФамилия: {self.surname}'
+        return f'''
+Имя: {self.name}
+Фамилия: {self.surname}'''
 
 def grade_average(students:list, course):
     total = 0
     lenth = 0
     for student in students:
         if isinstance(student, Student):
-            total += sum(student.grades.get(course))
-            lenth += len(student.grades.get(course))
-    return total / lenth
+            grade = student.grades.get(course)
+            if grade:
+                total += sum(grade)
+                lenth += len(grade)
+            else:
+                continue
+    return total / lenth if total or lenth else 'Нет оценок'
 
 def rate_average(lecturers:list, course):
     total = 0
     lenth = 0
     for lecturer in lecturers:
         if isinstance(lecturer, Lecturer):
-            total += sum(lecturer.rate_lection.get(course))
-            lenth += len(lecturer.rate_lection.get(course))
-    return total / lenth
+            rate = lecturer.rate_lection.get(course)
+            if rate:
+                total += sum(rate)
+                lenth += len(rate)
+    return total / lenth if total or lenth else 'Нет оценок'
 
 #Создаем студентов
 best_student = Student('Ruoy', 'Eman', 'your_gender')
@@ -108,7 +124,7 @@ second_student.add_courses('C#')
 cool_mentor = Reviewer('Some', 'Buddy')
 cool_mentor.attach_courses('Python')
 other_mentor = Reviewer('Bad', 'Guy')
-other_mentor.attach_courses('Java')
+other_mentor.attach_courses('C#')
 
 #Создаем лекторов
 lector = Lecturer('Another', 'Guy')
@@ -126,7 +142,7 @@ second_student.rate_lection(lector1, 'Python', 8)
 second_student.rate_lection(lector1, 'Python', 6)
 second_student.rate_lection(lector1, 'C#', 9)
 
-#Создаем домашнее задание
+#Оцениваем домашнее задание
 cool_mentor.rate_hw(best_student, 'Python', 10)
 cool_mentor.rate_hw(best_student, 'Python', 10)
 other_mentor.rate_hw(best_student, 'Java', 10)
@@ -141,5 +157,5 @@ print(lector)
 print(lector1 > lector)
 print(second_student > best_student)
 
-print(grade_average([best_student, second_student], 'Python'))
+print(grade_average([best_student, second_student], 'C#'))
 print(rate_average([lector, lector1], 'Python'))
