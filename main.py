@@ -1,6 +1,3 @@
-from optparse import Values
-
-
 class Student:
     def __init__(self, name, surname, gender):
         self.name = name
