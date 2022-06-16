@@ -17,7 +17,7 @@ class Student:
     
     def __lt__(self, other):
         if isinstance(other, Student):
-            return True if self.__grade_average() < other.__grade_average() else False
+            return self.__grade_average() < other.__grade_average()
 
     def __grade_average(self):
         grades = []
@@ -53,7 +53,7 @@ class Lecturer(Mentor):
 
     def __lt__(self, other):
         if isinstance(other, Lecturer):
-            return True if self.__rate_average() < other.__rate_average() else False
+            return self.__rate_average() < other.__rate_average()
 
     def __str__(self):
         return f'''
