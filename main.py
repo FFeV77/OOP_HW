@@ -1,3 +1,6 @@
+from optparse import Values
+
+
 class Student:
     def __init__(self, name, surname, gender):
         self.name = name
@@ -20,13 +23,10 @@ class Student:
             return True if self.__grade_average() < other.__grade_average() else False
 
     def __grade_average(self):
-        total = 0
-        lenth = 0
+        grades = []
         for values in self.grades.values():
-            for grade in values:
-                total += grade
-                lenth += 1
-        return round(total / lenth, 1) if lenth != 0 else 0
+            grades.extend(values)
+        return round(sum(grades) / len(grades), 2) if grades != 0 else 0
 
     def add_courses(self, course_name):
         self.courses_in_progress.append(course_name)  
@@ -65,13 +65,10 @@ class Lecturer(Mentor):
 Средняя оценка за лекции: {self.__rate_average()}'''
 
     def __rate_average(self):
-        total = 0
-        lenth = 0
+        rates = []
         for values in self.rate_lection.values():
-            for rate in values:
-                total += rate
-                lenth += 1
-        return round(total / lenth, 1) if lenth != 0 else 0
+            rates.extend(values)
+        return round(sum(rates) / len(rates), 2) if rates != 0 else 0
 
 class Reviewer(Mentor):
     def rate_hw(self, student, course, grade):
@@ -89,28 +86,22 @@ class Reviewer(Mentor):
 Фамилия: {self.surname}'''
 
 def grade_average(students:list, course):
-    total = 0
-    lenth = 0
+    grades = []
     for student in students:
-        if isinstance(student, Student):
-            grade = student.grades.get(course)
-            if grade:
-                total += sum(grade)
-                lenth += len(grade)
-            else:
-                continue
-    return total / lenth if total or lenth else 'Нет оценок'
+        if isinstance(student, Student) and student.grades.get(course):
+            grades.extend(student.grades[course])
+        else:
+            continue
+    return sum(grades) / len(grades) if grades else 'Нет оценок'
 
 def rate_average(lecturers:list, course):
-    total = 0
-    lenth = 0
+    rates = []
     for lecturer in lecturers:
-        if isinstance(lecturer, Lecturer):
-            rate = lecturer.rate_lection.get(course)
-            if rate:
-                total += sum(rate)
-                lenth += len(rate)
-    return total / lenth if total or lenth else 'Нет оценок'
+        if isinstance(lecturer, Lecturer) and lecturer.rate_lection.get(course):
+            rates.extend(lecturer.rate_lection[course])
+        else:
+            continue
+    return sum(rates) / len(rates) if rates else 'Нет оценок'
 
 #Создаем студентов
 best_student = Student('Ruoy', 'Eman', 'your_gender')
@@ -157,5 +148,5 @@ print(lector)
 print(lector1 > lector)
 print(second_student > best_student)
 
-print(grade_average([best_student, second_student], 'C#'))
+print(grade_average([best_student, second_student], 'Python'))
 print(rate_average([lector, lector1], 'Python'))
