@@ -1,4 +1,6 @@
 from pprint import pprint
+import os
+
 file_name = 'file.txt'
 
 def menu(file_name):
@@ -28,10 +30,12 @@ def get_shop_list_by_dishes(dishes:list, person_count):
                 recipe[ingridient['ingredient_name']] = {'measure':ingridient['measure'], 'quantity':count}
     return recipe
 
-def file_operator(files:list):
+def file_operator(directory):
     total = []
+    files = os.listdir(directory)
     for file in files:
-        with open(file, encoding='utf-8') as one_file:
+        file_path = os.path.join(directory, file)
+        with open(file_path, encoding='utf-8') as one_file:
             data = one_file.readlines()
             total.append((file, str(len(data)), list(data)))
     total = sorted(total, key=lambda lenth: lenth[1])
@@ -46,4 +50,4 @@ def file_operator(files:list):
 
 pprint(menu(file_name), sort_dicts=False, width=100)
 pprint(get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2))
-file_operator(['1.txt', '2.txt', '3.txt'])
+file_operator('files')
