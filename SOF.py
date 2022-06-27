@@ -1,5 +1,4 @@
 import requests
-from pprint import pprint
 from time import time
 
 
@@ -9,16 +8,30 @@ def get_questions(before_days, tag):
     page, i = 1, 1
     url = 'https://api.stackexchange.com/2.3/questions'
     while True:
-        params = {"page": page, "pagesize": 99, "fromdate": from_date, "todate": to_date, "order": "desc", "sort": "creation", "tagged": tag, "site": "stackoverflow"}
+        params = {
+            "page": page, 
+            "pagesize": 99, 
+            "fromdate": from_date, 
+            "todate": to_date, 
+            "order": "desc", 
+            "sort": "creation", 
+            "tagged": tag, 
+            "site": "stackoverflow"
+            }
         response = requests.get(url, params)
-        questions_page = response.json()
-        for item in questions_page['items']:
-            print(i, item['title'])
-            i += 1
-        if questions_page["has_more"]:
-            page += 1
+        if response.status_code == 200:
+            questions_page = response.json()
+            for item in questions_page['items']:
+                print(i, item['title'])
+                i += 1
+            if questions_page["has_more"]:
+                page += 1
+            else:
+                break
         else:
+            print('Ошибка ', response.status_code, response.text)
             break
     return
 
-get_questions(1, 'python')
+if __name__ == '__main__':
+    get_questions(1, 'python')

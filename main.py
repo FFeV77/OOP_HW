@@ -21,7 +21,6 @@ class Hero:
         return self.name
 
 if __name__ == '__main__':
-
     hulk = Hero(332)
     captain_america = Hero(149)
     tanos = Hero(655)
