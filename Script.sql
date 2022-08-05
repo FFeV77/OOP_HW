@@ -22,10 +22,10 @@ CREATE TABLE IF NOT EXISTS Single (
 );
 
 CREATE TABLE IF NOT EXISTS ArtistAlbum (
-	id SERIAL PRIMARY KEY,
 	artist_id INTEGER NOT NULL REFERENCES Artist(id),
 	genre_id INTEGER NOT NULL REFERENCES Genre(id),
-	album_id INTEGER NOT NULL REFERENCES Album(id)
+	album_id INTEGER NOT NULL REFERENCES Album(id),
+	PRIMARY KEY(artist_id, genre_id, album_id)
 );
 
 CREATE TABLE IF NOT EXISTS Worker (
