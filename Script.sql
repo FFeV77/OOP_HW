@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS ArtistAlbum (
 	artist_id INTEGER NOT NULL REFERENCES Artist(id),
 	genre_id INTEGER NOT NULL REFERENCES Genre(id),
 	album_id INTEGER NOT NULL REFERENCES Album(id),
-	PRIMARY KEY(artist_id, genre_id, album_id)
+	CONSTRAINT pk PRIMARY KEY(artist_id, genre_id, album_id)
 );
 
 CREATE TABLE IF NOT EXISTS Worker (
