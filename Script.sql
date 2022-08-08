@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS Single (
 CREATE TABLE IF NOT EXISTS Collection (
 	album_id INTEGER NOT NULL REFERENCES Album(id),
 	single_id INTEGER NOT NULL REFERENCES Single(id),
-	CONSTRAINT pk PRIMARY KEY(collection_id, single_id)
+	CONSTRAINT pk_col PRIMARY KEY(album_id, single_id)
 );
 
 CREATE TABLE IF NOT EXISTS ArtistAlbum (
