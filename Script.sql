@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS Single (
 );
 
 CREATE TABLE IF NOT EXISTS Collection (
-	album_id INTEGER NOT NULL REFERENCES Collection(id),
+	album_id INTEGER NOT NULL REFERENCES Album(id),
 	single_id INTEGER NOT NULL REFERENCES Single(id),
 	CONSTRAINT pk PRIMARY KEY(collection_id, single_id)
 );
