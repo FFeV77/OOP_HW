@@ -22,13 +22,7 @@ CREATE TABLE IF NOT EXISTS Single (
 );
 
 CREATE TABLE IF NOT EXISTS Collection (
-	id SERIAL PRIMARY KEY,
-	name VARCHAR(128) NOT NULL,
-	year INTEGER NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS CollectionSingle (
-	collection_id INTEGER NOT NULL REFERENCES Collection(id),
+	album_id INTEGER NOT NULL REFERENCES Collection(id),
 	single_id INTEGER NOT NULL REFERENCES Single(id),
 	CONSTRAINT pk PRIMARY KEY(collection_id, single_id)
 );
