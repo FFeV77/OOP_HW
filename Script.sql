@@ -17,21 +17,32 @@ CREATE TABLE IF NOT EXISTS Album (
 CREATE TABLE IF NOT EXISTS Single (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(128) NOT NULL,
-	duration TIME,
+	duration INTEGER,
 	album_id INTEGER NOT NULL REFERENCES Album(id)
 );
 
 CREATE TABLE IF NOT EXISTS Collection (
-	album_id INTEGER NOT NULL REFERENCES Album(id),
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(128) NOT NULL,
+	year INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS CollectionSingle (
+	collection_id INTEGER NOT NULL REFERENCES Collection(id),
 	single_id INTEGER NOT NULL REFERENCES Single(id),
-	CONSTRAINT pk_col PRIMARY KEY(album_id, single_id)
+	CONSTRAINT pk_col PRIMARY KEY(collection_id, single_id)
 );
 
 CREATE TABLE IF NOT EXISTS ArtistAlbum (
 	artist_id INTEGER NOT NULL REFERENCES Artist(id),
-	genre_id INTEGER NOT NULL REFERENCES Genre(id),
 	album_id INTEGER NOT NULL REFERENCES Album(id),
-	CONSTRAINT pk PRIMARY KEY(artist_id, genre_id, album_id)
+	CONSTRAINT pk_art_alb PRIMARY KEY(artist_id, album_id)
+);
+
+CREATE TABLE IF NOT EXISTS ArtistGenre (
+	artist_id INTEGER NOT NULL REFERENCES Artist(id),
+	genre_id INTEGER NOT NULL REFERENCES Genre(id),
+	CONSTRAINT pk_art_gen PRIMARY KEY(artist_id, genre_id)
 );
 
 CREATE TABLE IF NOT EXISTS Worker (
