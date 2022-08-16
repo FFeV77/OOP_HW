@@ -1,53 +1,53 @@
-CREATE TABLE IF NOT EXISTS Genre (
+CREATE TABLE IF NOT EXISTS genre(
 	id SERIAL PRIMARY KEY,
 	genre VARCHAR(64) NOT NULL
 );
 	
-CREATE TABLE IF NOT EXISTS Artist (
+CREATE TABLE IF NOT EXISTS artist(
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(64) NOT NULL
 );
 	
-CREATE TABLE IF NOT EXISTS Album (
+CREATE TABLE IF NOT EXISTS album(
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(128) NOT NULL,
 	year INTEGER
 );
 
-CREATE TABLE IF NOT EXISTS Single (
+CREATE TABLE IF NOT EXISTS single(
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(128) NOT NULL,
 	duration INTEGER,
-	album_id INTEGER NOT NULL REFERENCES Album(id)
+	album_id INTEGER NOT NULL REFERENCES album(id)
 );
 
-CREATE TABLE IF NOT EXISTS Collection (
+CREATE TABLE IF NOT EXISTS collection(
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(128) NOT NULL,
 	year INTEGER
 );
 
-CREATE TABLE IF NOT EXISTS CollectionSingle (
-	collection_id INTEGER NOT NULL REFERENCES Collection(id),
-	single_id INTEGER NOT NULL REFERENCES Single(id),
+CREATE TABLE IF NOT EXISTS collectionsingle(
+	collection_id INTEGER NOT NULL REFERENCES collection(id),
+	single_id INTEGER NOT NULL REFERENCES single(id),
 	CONSTRAINT pk_col PRIMARY KEY(collection_id, single_id)
 );
 
-CREATE TABLE IF NOT EXISTS ArtistAlbum (
-	artist_id INTEGER NOT NULL REFERENCES Artist(id),
-	album_id INTEGER NOT NULL REFERENCES Album(id),
+CREATE TABLE IF NOT EXISTS artistalbum(
+	artist_id INTEGER NOT NULL REFERENCES artist(id),
+	album_id INTEGER NOT NULL REFERENCES album(id),
 	CONSTRAINT pk_art_alb PRIMARY KEY(artist_id, album_id)
 );
 
-CREATE TABLE IF NOT EXISTS ArtistGenre (
-	artist_id INTEGER NOT NULL REFERENCES Artist(id),
-	genre_id INTEGER NOT NULL REFERENCES Genre(id),
+CREATE TABLE IF NOT EXISTS artistgenre(
+	artist_id INTEGER NOT NULL REFERENCES artist(id),
+	genre_id INTEGER NOT NULL REFERENCES genre(id),
 	CONSTRAINT pk_art_gen PRIMARY KEY(artist_id, genre_id)
 );
 
-CREATE TABLE IF NOT EXISTS Worker (
+CREATE TABLE IF NOT EXISTS worker(
 	id SERIAL PRIMARY KEY,
 	name TEXT NOT NULL,
 	department TEXT NOT NULL,
-	leader INTEGER REFERENCES Worker(id)
+	leader INTEGER REFERENCES worker(id)
 );
