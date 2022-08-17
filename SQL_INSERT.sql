@@ -50,10 +50,10 @@ INSERT INTO album(name, year)
 VALUES('Mutter', '2011');
 
 INSERT INTO album(name, year)
-VALUES('Moskau', '2015');
+VALUES('Moskau', '2020');
 
 INSERT INTO album(name, year)
-VALUES('Mom', '2018');
+VALUES('Mom', '2019');
 
 INSERT INTO album(name, year)
 VALUES('Nothing lives metter', '1997');
