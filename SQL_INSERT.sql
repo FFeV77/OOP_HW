@@ -84,7 +84,7 @@ VALUES
 (5, 6),
 (6, 7),
 (7, 8),
-(8, 1),
+(8, 1);
 
 INSERT INTO artistgenre(artist_id, genre_id)
 VALUES
@@ -95,4 +95,4 @@ VALUES
 (5, 3),
 (6, 4),
 (7, 5),
-(8, 1),
+(8, 1);
